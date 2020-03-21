@@ -23,6 +23,7 @@ defmodule BlurbleWeb do
 
       import Plug.Conn
       import BlurbleWeb.Gettext
+      import Phoenix.LiveView.Controller
       alias BlurbleWeb.Router.Helpers, as: Routes
     end
   end
@@ -41,6 +42,7 @@ defmodule BlurbleWeb do
 
       import BlurbleWeb.ErrorHelpers
       import BlurbleWeb.Gettext
+      import Phoenix.LiveView.Helpers
       alias BlurbleWeb.Router.Helpers, as: Routes
     end
   end
@@ -50,6 +52,7 @@ defmodule BlurbleWeb do
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
+      import Phoenix.LiveView.Router
     end
   end
 

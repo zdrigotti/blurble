@@ -16,7 +16,7 @@ config :blurble, BlurbleWeb.Endpoint,
   secret_key_base: "y1VAoFigoTGOEQ5NSE+IZiTEWRuWin+uVda8WawHOoP9aFsjC1lcmidFrcFnQJwo",
   render_errors: [view: BlurbleWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Blurble.PubSub, adapter: Phoenix.PubSub.PG2],
-  live_view: [signing_salt: "llae1yL4"]
+  live_view: [signing_salt: "SECRET_SALT"]
 
 # Configures Elixir's Logger
 config :logger, :console,
