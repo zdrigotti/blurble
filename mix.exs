@@ -33,9 +33,11 @@ defmodule Blurble.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:argon2_elixir, "~> 2.0"},
       {:ecto_sql, "~> 3.3.4"},
       {:jason, "~> 1.0"},
       {:gettext, "~> 0.11"},
+      {:guardian, "~> 2.0"},
       {:phoenix, "~> 1.4.16"},
       {:phoenix_ecto, "~> 4.0"},
       {:phoenix_pubsub, "~> 1.1"},
