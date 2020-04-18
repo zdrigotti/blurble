@@ -3,6 +3,8 @@ defmodule BlurbleWeb.SessionController do
 
   alias Blurble.{UserManager, UserManager.User, UserManager.Guardian}
 
+  import BlurbleWeb.Helpers.Errors
+
   def create(conn, _params) do
     maybe_user = Guardian.Plug.current_resource(conn)
     if maybe_user do
@@ -43,6 +45,12 @@ defmodule BlurbleWeb.SessionController do
     |> put_flash(:info, "Thanks for signing up!")
     |> Guardian.Plug.sign_in(user)
     |> redirect(to: "/protected")
+  end
+
+  defp signup_reply({:error, changeset}, conn) do
+    conn
+    |> put_flash(:error, Enum.join(full_messages(changeset), ", "))
+    |> create(%{})
   end
 
   defp login_reply({:ok, user}, conn) do
