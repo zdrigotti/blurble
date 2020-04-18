@@ -26,6 +26,8 @@ defmodule BlurbleWeb.Router do
 
     get "/", PageController, :index
 
+    get "/signup", SessionController, :create
+    post "/signup", SessionController, :sign_up
     get "/login", SessionController, :new
     post "/login", SessionController, :login
     get "/logout", SessionController, :logout

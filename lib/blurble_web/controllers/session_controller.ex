@@ -3,7 +3,21 @@ defmodule BlurbleWeb.SessionController do
 
   alias Blurble.{UserManager, UserManager.User, UserManager.Guardian}
 
-  def new(conn, _) do
+  def create(conn, _params) do
+    maybe_user = Guardian.Plug.current_resource(conn)
+    if maybe_user do
+      redirect(conn, to: "/protected")
+    else
+      render(conn, "create.html", action: Routes.session_path(conn, :sign_up))
+    end
+  end
+
+  def sign_up(conn, %{"user" => %{"username" => username, "password" => password}}) do
+    UserManager.create_user(%{username: username, password: password})
+    |> signup_reply(conn)
+  end
+
+  def new(conn, _params) do
     changeset = UserManager.change_user(%User{})
     maybe_user = Guardian.Plug.current_resource(conn)
     if maybe_user do
@@ -18,10 +32,17 @@ defmodule BlurbleWeb.SessionController do
     |> login_reply(conn)
   end
 
-  def logout(conn, _) do
+  def logout(conn, _params) do
     conn
     |> Guardian.Plug.sign_out()
     |> redirect(to: "/login")
+  end
+
+  defp signup_reply({:ok, user}, conn) do
+    conn
+    |> put_flash(:info, "Thanks for signing up!")
+    |> Guardian.Plug.sign_in(user)
+    |> redirect(to: "/protected")
   end
 
   defp login_reply({:ok, user}, conn) do
