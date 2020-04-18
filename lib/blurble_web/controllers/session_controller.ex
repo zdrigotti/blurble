@@ -12,8 +12,8 @@ defmodule BlurbleWeb.SessionController do
     end
   end
 
-  def sign_up(conn, %{"user" => %{"username" => username, "password" => password}}) do
-    UserManager.create_user(%{username: username, password: password})
+  def sign_up(conn, %{"user" => %{"username" => username, "email" => email, "password" => password}}) do
+    UserManager.create_user(%{username: username, email: email, password: password})
     |> signup_reply(conn)
   end
 
