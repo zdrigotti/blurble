@@ -42,13 +42,6 @@ defmodule Blurble.UserManagerTest do
     test "update_user/2 with valid data updates the user" do
       user = user_fixture()
       assert {:ok, %User{} = user} = UserManager.update_user(user, @update_attrs)
-      assert user.password == "some updated password"
-      assert user.username == "some updated username"
-    end
-
-    test "update_user/2 with valid data updates the user" do
-      user = user_fixture()
-      assert {:ok, %User{} = user} = UserManager.update_user(user, @update_attrs)
       assert {:ok, user} == Argon2.check_pass(user, "some updated password", hash_key: :password)
       assert user.username == "some updated username"
     end
