@@ -7,6 +7,7 @@ defmodule BlurbleWeb.SessionController do
 
   def create(conn, _params) do
     maybe_user = Guardian.Plug.current_resource(conn)
+
     if maybe_user do
       redirect(conn, to: "/protected")
     else
@@ -14,7 +15,9 @@ defmodule BlurbleWeb.SessionController do
     end
   end
 
-  def sign_up(conn, %{"user" => %{"username" => username, "email" => email, "password" => password}}) do
+  def sign_up(conn, %{
+        "user" => %{"username" => username, "email" => email, "password" => password}
+      }) do
     UserManager.create_user(%{username: username, email: email, password: password})
     |> signup_reply(conn)
   end
@@ -22,6 +25,7 @@ defmodule BlurbleWeb.SessionController do
   def new(conn, _params) do
     changeset = UserManager.change_user(%User{})
     maybe_user = Guardian.Plug.current_resource(conn)
+
     if maybe_user do
       redirect(conn, to: "/protected")
     else

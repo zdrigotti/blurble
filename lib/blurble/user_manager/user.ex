@@ -22,7 +22,9 @@ defmodule Blurble.UserManager.User do
     |> put_password_hash()
   end
 
-  defp put_password_hash(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
+  defp put_password_hash(
+         %Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset
+       ) do
     change(changeset, password: Argon2.hash_pwd_salt(password))
   end
 

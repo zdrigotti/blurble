@@ -9,10 +9,12 @@ defmodule BlurbleWeb.Helpers.Errors do
     module_name = inspect(changeset.data.__struct__)
 
     key_path = "#{module_name}.#{key}"
-    key_name = case Gettext.dgettext(BlurbleWeb.Gettext, "schema", key_path) do
-      ^key_path -> Phoenix.Naming.humanize(key)
-      n -> n
-    end
+
+    key_name =
+      case Gettext.dgettext(BlurbleWeb.Gettext, "schema", key_path) do
+        ^key_path -> Phoenix.Naming.humanize(key)
+        n -> n
+      end
 
     "#{key_name} #{BlurbleWeb.ErrorHelpers.translate_error(error)}"
   end
