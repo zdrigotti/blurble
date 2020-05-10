@@ -7,6 +7,7 @@ defmodule BlurbleWeb.Router do
     plug :fetch_live_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :put_root_layout, {BlurbleWeb.LayoutView, :root}
   end
 
   pipeline :api do
@@ -36,6 +37,6 @@ defmodule BlurbleWeb.Router do
   scope "/", BlurbleWeb do
     pipe_through [:browser, :auth, :ensure_auth]
 
-    get "/protected", PageController, :protected
+    live "/protected", Protected
   end
 end
