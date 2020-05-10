@@ -68,7 +68,8 @@ config :blurble, BlurbleWeb.Endpoint,
     port: System.get_env("URL_PORT") || 443
   ],
   secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE"),
-  server: true
+  server: true,
+  cache_static_manifest: "priv/static/cache_manifest.json"
 
 config :blurble, Blurble.Repo,
   adapter: Ecto.Adapters.Postgres,
