@@ -55,8 +55,18 @@ config :logger, level: :info
 import_config "prod.secret.exs"
 
 config :blurble, BlurbleWeb.Endpoint,
-  http: [port: {:system, "PORT"}], # Possibly not needed, but doesn't hurt
-  url: [host: System.get_env("APP_NAME") <> ".gigalixirapp.com", port: 80],
+  # Possibly not needed, but doesn't hurt
+  http: [port: {:system, "PORT"}],
+  url: [
+    System.get_env("URL_SCHEME") || "https",
+    host: System.get_env("APP_NAME") <> ".gigalixirapp.com",
+    port: System.get_env("URL_PORT") || 443
+  ],
+  static_url: [
+    System.get_env("URL_SCHEME") || "https",
+    host: System.get_env("APP_NAME") <> ".gigalixirapp.com",
+    port: System.get_env("URL_PORT") || 443
+  ],
   secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE"),
   server: true
 
